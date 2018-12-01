@@ -7,7 +7,7 @@ const requestHandler = (req, res) => {
 	
 	if (url === '/') {
 		res.write('<html>');
-		res.write('<body><form action="/message" method="POST"><input type="text" name="message"><button type="submit">Submit</button></form>');
+		res.write('<body><form action="/message" method="POST"><input type="text" name="message"><button type="submit">Submit Post</button></form>');
 		res.write('</body>');
 		return res.end();
 	}
@@ -21,9 +21,9 @@ const requestHandler = (req, res) => {
 			const parsedBody = Buffer.concat(body).toString();
 			// console.log(parsedBody);
 			const message = parsedBody.split('=')[1];
-			fs.writeFile('message.txt', message, (err) => {
+			fs.writeFile('message.txt', message, () => {
 				res.statusCode = 302;
-				res.setHeader('Location', '/')
+				res.setHeader('Location', '/');
 				return res.end();
 			});	
 		});
@@ -35,6 +35,6 @@ const requestHandler = (req, res) => {
 	res.write('<p>Hello</p>');
 	res.write('</body>');
 	res.end();
-}
+};
 
 module.exports = requestHandler;
